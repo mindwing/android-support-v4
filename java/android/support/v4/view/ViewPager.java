@@ -2181,6 +2181,11 @@ public class ViewPager extends ViewGroup {
                 (overScrollMode == ViewCompat.OVER_SCROLL_IF_CONTENT_SCROLLS &&
                         mAdapter != null && mAdapter.getCount() > 1)) {
             if (!mLeftEdge.isFinished()) {
+                Log.d("OVER_SCROLL", "onDraw()");
+                if(edgeEffectListener != null) {
+                    edgeEffectListener.onLeftEdgeEffect();
+                }
+
                 final int restoreCount = canvas.save();
                 final int height = getHeight() - getPaddingTop() - getPaddingBottom();
                 final int width = getWidth();
@@ -2192,6 +2197,11 @@ public class ViewPager extends ViewGroup {
                 canvas.restoreToCount(restoreCount);
             }
             if (!mRightEdge.isFinished()) {
+                Log.d("OVER_SCROLL", "onDraw()");
+                if(edgeEffectListener != null) {
+                    edgeEffectListener.onRightEdgeEffect();
+                }
+
                 final int restoreCount = canvas.save();
                 final int width = getWidth();
                 final int height = getHeight() - getPaddingTop() - getPaddingBottom();
@@ -2891,5 +2901,11 @@ public class ViewPager extends ViewGroup {
             }
             return llp.position - rlp.position;
         }
+    }
+
+    private OnEdgeEffectListener edgeEffectListener;
+
+    public void setOnEdgeEfffectListener(OnEdgeEffectListener _edgeEfffectListener) {
+        edgeEffectListener = _edgeEfffectListener;
     }
 }
